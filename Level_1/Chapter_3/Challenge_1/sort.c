@@ -34,6 +34,38 @@ void mergeSort(size_t n, double array[n]) {
     mergeSortHelper(n, workspace, array, 0, n);
 }
 
+size_t partition(size_t n, double arr[n], int16_t lo, int16_t hi) {
+    double pivot = arr[hi];
+    size_t i = lo;
+    for (size_t j = lo; j < hi; j++) {
+        if (arr[j] <= pivot) {
+            // Swap arr[i] with arr[j]
+            double temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+            i++;
+        }
+    }
+    // Swap pivot with last element
+    double temp = arr[i];
+    arr[i] = arr[hi];
+    arr[hi] = temp;
+    return i;
+}
+
+void quickSort(size_t n, double arr[n], int16_t lo, int16_t hi) {
+    if (lo >= hi || lo < 0 || hi - lo < 1) {
+        return;
+    }
+
+    // Partition array and get the pivot index
+    size_t p = partition(n, arr, lo, hi);
+
+    // Sort the two partitions
+    quickSort(n, arr, lo, p - 1);
+    quickSort(n, arr, p + 1, hi);
+}
+
 static size_t const ARR_SIZE = 20;
 static size_t const MAX_NUMBER = 100;
 
@@ -43,7 +75,8 @@ int main(void) {
         array[i] = rand() % MAX_NUMBER;
     }
 
-    mergeSort(ARR_SIZE, array);
+    // mergeSort(ARR_SIZE, array);
+    quickSort(ARR_SIZE, array, 0, ARR_SIZE - 1);
 
     for (size_t i = 0; i < ARR_SIZE; i++) {
         printf("array[%zu] = %f\n", i, array[i]);
