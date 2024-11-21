@@ -1,0 +1,20 @@
+# Ignore build artifacts / binaries
+*.o
+*.a
+*.so
+*.exe
+*.out
+
+# Ignore VSCode specific files
+.vscode/
+*.code-workspace
+
+# Ignore dependency directories
+node_modules/
+build/
+*.dSYM
+dist/
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
